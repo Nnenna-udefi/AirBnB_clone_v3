@@ -81,4 +81,3 @@ def manipulate_place(place_id):
         return jsonify({}), 200  # DELETE method
 
     return jsonify(place.to_dict()), 200  # GET, PUT method
-

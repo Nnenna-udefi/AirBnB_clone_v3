@@ -7,7 +7,8 @@ from models.place import Place
 from models.amenity import Amenity
 import os
 
-@app_views.route('places/<place_id>/amenities', method=['GET'], strict_slashes=False)
+
+@app_views.route('places/<place_id>/amenities', method=['GET'])
 def all_place_review(place_id):
     """Return list of all review objects of a place"""
     place = storage.get("Place", place_id)
@@ -24,7 +25,7 @@ def all_place_review(place_id):
         return jsonify([amenity.to_dict() for amenity in amenities])
 
 
-@app_views.route('places/<place_id>/amenities/<amenity_id>', methods=['DELETE'], strict_slashes=False)
+@app_views.route('places/<place_id>/amenities/<amenity_id>', methods=['DELETE'])
 def delete_amenity_place(place_id, amenity_id):
     """Deletes amenity object to a place"""
     place = storage.get("Place", place_id)
