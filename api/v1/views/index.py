@@ -1,15 +1,14 @@
 #!/usr/bin/python3
-"""app_views index file"""
-from api.v1.views import app_views
+"""API endpoint index file"""
 from flask import jsonify
 from models import storage
+from api.v1.views import app_views
 
 
-@app_views.route('/status', methods=['GET'])
+@app_views.route('/status')
 def get_status():
-    """method to get status and return a JSON file"""
-    return jsonify({"status": "OK"})
-
+    """Returns HTTP Json status 200"""
+    return jsonify({"status": "OK"}), 200
 
 @app_views.route('/stats')
 def get_count():
@@ -23,7 +22,3 @@ def get_count():
         "User": "users"
     }
     return jsonify({name: storage.count(cls) for cls, name in stats.items()})
-
-
-if __name__ == "__main__":
-    pass
