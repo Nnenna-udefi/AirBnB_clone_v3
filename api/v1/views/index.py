@@ -1,25 +1,10 @@
 #!/usr/bin/python3
-"""API endpoint index file"""
-from flask import jsonify
-from models import storage
+"""app_views index file"""
 from api.v1.views import app_views
+from flask import jsonify
 
 
-@app_views.route('/status')
+@app_views.route('/status', methods=['GET'])
 def get_status():
-    """Returns HTTP Json status 200"""
-    return jsonify({"status": "OK"}), 200
-
-
-@app_views.route('/stats')
-def get_count():
-    """retrieves the number of each objects by type"""
-    stats = {
-        "Amenity": "amenities",
-        "City": "cities",
-        "Place": "places",
-        "Review": "reviews",
-        "State": "states",
-        "User": "users"
-    }
-    return jsonify({name: storage.count(cls) for cls, name in stats.items()})
+    """method to get status and return a JSON file"""
+    return jsonify({"status": "OK"})
