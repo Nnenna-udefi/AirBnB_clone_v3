@@ -7,6 +7,7 @@ from api.v1.views import app_views
 from os import getenv
 
 app = Flask(__name__)
+app.url_map.strict_slashes = False
 app.register_blueprint(app_views)
 cors = CORS(app, resources={"/*": {"origins": "0.0.0.0"}})
 
@@ -18,7 +19,7 @@ def not_found(error):
 
 
 @app.teardown_appcontext
-def close_storage(*args, **kwargs):
+def close_storage(exception):
     """Close app storage (FileStorage or DBStorage)"""
     storage.close()
 
