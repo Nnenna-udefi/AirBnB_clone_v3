@@ -23,3 +23,7 @@ def get_count():
         "User": "users"
     }
     return jsonify({name: storage.count(cls) for cls, name in stats.items()})
+
+
+if __name__ == "__main__":
+    pass
