@@ -10,6 +10,7 @@ def get_status():
     """Returns HTTP Json status 200"""
     return jsonify({"status": "OK"}), 200
 
+
 @app_views.route('/stats')
 def get_count():
     """retrieves the number of each objects by type"""
@@ -21,4 +22,7 @@ def get_count():
         "State": "states",
         "User": "users"
     }
-    return jsonify({name: storage.count(cls) for cls, name in stats.items()})
+    return_dict = {}
+    for name, cls in stats.items():
+        return_dict[name] = storage.count(cls)
+    return jsonify(return_dict)
