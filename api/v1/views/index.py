@@ -5,7 +5,7 @@ from flask import Flask, Blueprint, jsonify
 from models import storage
 
 
-hbnbText = {
+stat = {
     "amenities": "Amenity",
     "cities": "City",
     "places": "Place",
@@ -16,16 +16,16 @@ hbnbText = {
 
 
 @app_views.route('/status', strict_slashes=False)
-def hbnbStatus():
+def getHbnbStatus():
     """hbnbStatus"""
     return jsonify({"status": "OK"})
 
 
 @app_views.route('/stats', strict_slashes=False)
-def hbnbStats():
+def getHbnbStats():
     """hbnbStats"""
     return_dict = {}
-    for key, value in hbnbText.items():
+    for key, value in stat.items():
         return_dict[key] = storage.count(value)
     return jsonify(return_dict)
 

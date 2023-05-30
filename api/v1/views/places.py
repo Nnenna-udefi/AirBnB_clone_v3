@@ -88,10 +88,10 @@ def put_place(place_id):
 def post_places_search():
     """searches for a place"""
     if request.get_json() is not None:
-        params = request.get_json()
-        states = params.get('states', [])
-        cities = params.get('cities', [])
-        amenities = params.get('amenities', [])
+        param = request.get_json()
+        states = param.get('states', [])
+        cities = param.get('cities', [])
+        amenities = param.get('amenities', [])
         amenity_objects = []
         for amenity_id in amenities:
             amenity = storage.get('Amenity', amenity_id)
