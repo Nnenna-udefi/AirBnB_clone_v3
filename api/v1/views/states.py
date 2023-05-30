@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """API endpoint"""
-from flask import abort, jsonify, request
+from flask import Blueprint, abort, jsonify, request
 from api.v1.views import app_views
 from models import storage
 from models.state import State
@@ -10,8 +10,11 @@ from models.base_model import BaseModel
 @app_views.route('/states', methods=['GET'])
 def all_states():
     """Return list of all states"""
+    output = []
     all_states = storage.all("State").values()
-    return jsonify([obj.to_dict() for obj in all_states])
+    for obj in all_states:
+        output.append(all_state.to_dict())
+    return jsonify(output)
 
 
 @app_views.route('/states', methods=['POST'])
