@@ -3,6 +3,7 @@
 from api.v1.views import app_views
 from flask import Flask, Blueprint, jsonify
 from models import storage
+from sqlalchemy.sql import text
 
 
 @app_views.route('/status', strict_slashes=False)
@@ -24,5 +25,5 @@ def get_stats():
     }
     return_dict = {}
     for key, value in stats.items():
-        return_dict[key] = storage.count(value)
+        return_dict[key] = storage.count(text(value))
     return jsonify(return_dict)
