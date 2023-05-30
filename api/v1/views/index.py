@@ -1,7 +1,7 @@
 #!/usr/bin/python3
-"""index.py to connect to API"""
+"""following directions"""
 from api.v1.views import app_views
-from flask import Flask, Blueprint, jsonify
+from flask import jsonify, Blueprint, render_template, abort
 from models import storage
 from models.amenity import Amenity
 from models.city import City
@@ -11,24 +11,17 @@ from models.state import State
 from models.user import User
 
 
-@app_views.route('/status', strict_slashes=False)
-def get_status():
-    """hbnbStatus"""
-    return jsonify({"status": "OK"})
+@app_views.route('/status', methods=['GET'])
+def status():
+    """status"""
+    return (jsonify({"status": "OK"}))
 
 
-@app_views.route('/stats', strict_slashes=False)
-def get_stats():
-    """ get stats"""
-    stats = {
-        "amenities": "Amenity",
-        "cities": "City",
-        "places": "Place",
-        "reviews": "Review",
-        "states": "State",
-        "users": "User"
-    }
-    return_dict = {}
-    for key, value in stats.items():
-        return_dict[key] = storage.count(value)
-    return jsonify(return_dict)
+@app_views.route('/stats', methods=['GET'])
+def stats():
+    return (jsonify({"amenities": storage.count(Amenity),
+                     "cities": storage.count(City),
+                     "places": storage.count(Place),
+                     "reviews": storage.count(Review),
+                     "states": storage.count(State),
+                     "users": storage.count(User)}))
